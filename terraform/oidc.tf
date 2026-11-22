@@ -10,14 +10,14 @@ resource "aws_iam_role" "github_actions" {
     Version = "2012-10-17"
     Statement = [{
       Effect    = "Allow"
-      Action    = "sts:AssumeRoleWithWebIdentity"
+      Action    = ["sts:AssumeRoleWithWebIdentity", "sts:TagSession"]
       Principal = { Federated = aws_iam_openid_connect_provider.github.arn }
       Condition = {
         StringEquals = {
           "token.actions.githubusercontent.com:aud" = "sts.amazonaws.com"
         }
         StringLike = {
-          "token.actions.githubusercontent.com:sub" = "repo:${var.github_repo}:*"
+          "token.actions.githubusercontent.com:sub" = "repo:paing-c@101639264/aws-cicd-ecs-terraform@1467224430:*"
         }
       }
     }]
